@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/components/icon_content.dart';
 import 'package:bmi_calculator/screens/results.dart';
@@ -103,8 +104,8 @@ class _InputPageState extends State<InputPage> {
                           activeTrackColor: Colors.white,
                           thumbColor: const Color(0xFFEB1555),
                           overlayColor: const Color(0x29EB1555),
-                          thumbShape:
-                              const RoundSliderThumbShape(enabledThumbRadius: 15),
+                          thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 15),
                           overlayShape:
                               const RoundSliderOverlayShape(overlayRadius: 30)),
                       child: Slider(
@@ -209,8 +210,14 @@ class _InputPageState extends State<InputPage> {
             )),
             BottomButton(
               onTap: () {
+                CalculatorBrain calc =
+                    CalculatorBrain(height: height, weight: weight);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Results()));
+                    MaterialPageRoute(builder: (context) =>  Results(
+                      resultText: calc.getResult(),
+                      bmiResult: calc.calculateBMI(),
+                      interpretation: calc.getInterpretation(),
+                    )));
               },
               buttonTitle: 'CALCULATE',
             )
